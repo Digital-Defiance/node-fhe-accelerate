@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FHE Hardware Benchmark Report</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 40px; }
+        h1 { color: #333; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #4CAF50; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        tr:hover { background-color: #ddd; }
+        .winner { background-color: #90EE90 !important; font-weight: bold; }
+        .incorrect { color: red; }
+        .summary { background-color: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <h1>Comprehensive FHE Hardware Benchmark Report</h1>
+    <p>Testing ALL hardware features on Apple Silicon for FHE operations.</p>
+    <div class="summary">
+        <h2>Summary of Winners</h2>
+        <table>
+            <tr><th>Operation</th><th>Winner</th><th>Latency</th></tr>
+            <tr><td>Modular Multiplication (n=1024)</td><td>Barrett Unrolled (4x)</td><td>1.52 µs</td></tr>
+            <tr><td>Modular Multiplication (n=4096)</td><td>Barrett Unrolled (4x)</td><td>6.30 µs</td></tr>
+            <tr><td>Modular Multiplication (n=16384)</td><td>Barrett Unrolled (4x)</td><td>27.44 µs</td></tr>
+            <tr><td>Modular Multiplication (n=65536)</td><td>Neural Engine</td><td>124.65 µs</td></tr>
+            <tr><td>NTT (degree=1024)</td><td>SME Tile NTT</td><td>8.69 µs</td></tr>
+            <tr><td>NTT (degree=4096)</td><td>SME Tile NTT</td><td>41.12 µs</td></tr>
+            <tr><td>NTT (degree=16384)</td><td>Matrix-form NTT (AMX)</td><td>186.72 µs</td></tr>
+            <tr><td>Polynomial Multiplication (degree=1024)</td><td>NTT-based</td><td>21.08 µs</td></tr>
+            <tr><td>Polynomial Multiplication (degree=4096)</td><td>NTT-based</td><td>95.69 µs</td></tr>
+            <tr><td>Neural Engine Operations (batch=1024)</td><td>CPU Direct</td><td>520.44 ns</td></tr>
+            <tr><td>Neural Engine Operations (batch=16384)</td><td>CPU Direct</td><td>7.32 µs</td></tr>
+            <tr><td>Neural Engine Operations (batch=65536)</td><td>CPU Direct</td><td>33.89 µs</td></tr>
+            <tr><td>Ray Tracing Operations (base=256, levels=4)</td><td>CPU Direct</td><td>36.13 µs</td></tr>
+            <tr><td>Texture Sampling (degree=1024, points=10000)</td><td>Texture Sampling</td><td>5.10 µs</td></tr>
+            <tr><td>Memory System (size=64KB)</td><td>memcpy</td><td>551.21 ns</td></tr>
+            <tr><td>Memory System (size=1024KB)</td><td>Cache-Aligned</td><td>12.34 µs</td></tr>
+            <tr><td>Memory System (size=16384KB)</td><td>memcpy</td><td>209.90 µs</td></tr>
+            <tr><td>Pipelined Operations (degree=4096)</td><td>Parallel NTTs</td><td>85.59 µs</td></tr>
+            <tr><td>Pipelined Operations (degree=16384)</td><td>Parallel NTTs</td><td>274.40 µs</td></tr>
+        </table>
+    </div>
+    <h2>Modular Multiplication (n=1024)</h2>
+    <table>
+        <tr><th>Method</th><th>Backend</th><th>Latency</th><th>Stddev</th><th>Throughput</th><th>Speedup</th><th>Correct</th></tr>
+        <tr><td>CPU Scalar</td><td>CPU Scalar</td><td>4.07 µs</td><td>3.33 µs</td><td>245.57 Kops/s</td><td>1.00x</td><td>✓</td></tr>
+        <tr><td>NEON Basic</td><td>NEON</td><td>3.24 µs</td><td>46.74 ns</td><td>308.85 Kops/s</td><td>1.26x</td><td>✓</td></tr>
+        <tr><td>NEON Unrolled (4x)</td><td>NEON Unrolled</td><td>3.18 µs</td><td>47.43 ns</td><td>314.01 Kops/s</td><td>1.28x</td><td>✓</td></tr>
+        <tr><td>Montgomery</td><td>CPU Scalar</td><td>2.07 µs</td><td>35.33 ns</td><td>483.58 Kops/s</td><td>1.97x</td><td>✓</td></tr>
+        <tr class="winner"><td>Barrett Unrolled (4x)</td><td>CPU Scalar</td><td>1.52 µs</td><td>28.71 ns</td><td>657.71 Kops/s</td><td>2.68x</td><td>✓</td></tr>
+        <tr><td>Neural Engine</td><td>Neural Engine</td><td>1.77 µs</td><td>29.20 ns</td><td>563.91 Kops/s</td><td>2.30x</td><td>✓</td></tr>
+    </table>
+    <h2>Modular Multiplication (n=4096)</h2>
+    <table>
+        <tr><th>Method</th><th>Backend</th><th>Latency</th><th>Stddev</th><th>Throughput</th><th>Speedup</th><th>Correct</th></tr>
+        <tr><td>CPU Scalar</td><td>CPU Scalar</td><td>13.02 µs</td><td>61.32 ns</td><td>76.82 Kops/s</td><td>1.00x</td><td>✓</td></tr>
+        <tr><td>NEON Basic</td><td>NEON</td><td>12.50 µs</td><td>49.18 ns</td><td>80.02 Kops/s</td><td>1.04x</td><td>✓</td></tr>
+        <tr><td>NEON Unrolled (4x)</td><td>NEON Unrolled</td><td>12.44 µs</td><td>374.58 ns</td><td>80.36 Kops/s</td><td>1.05x</td><td>✓</td></tr>
+        <tr><td>Montgomery</td><td>CPU Scalar</td><td>8.18 µs</td><td>277.63 ns</td><td>122.30 Kops/s</td><td>1.59x</td><td>✓</td></tr>
+        <tr class="winner"><td>Barrett Unrolled (4x)</td><td>CPU Scalar</td><td>6.30 µs</td><td>64.39 ns</td><td>158.79 Kops/s</td><td>2.07x</td><td>✓</td></tr>
+        <tr><td>Barrett Parallel</td><td>Hybrid</td><td>157.42 µs</td><td>19.04 µs</td><td>6.35 Kops/s</td><td>0.08x</td><td>✓</td></tr>
+        <tr><td>Neural Engine</td><td>Neural Engine</td><td>7.13 µs</td><td>371.82 ns</td><td>140.26 Kops/s</td><td>1.83x</td><td>✓</td></tr>
+    </table>
+    <h2>Modular Multiplication (n=16384)</h2>
+    <table>
+        <tr><th>Method</th><th>Backend</th><th>Latency</th><th>Stddev</th><th>Throughput</th><th>Speedup</th><th>Correct</th></tr>
+        <tr><td>CPU Scalar</td><td>CPU Scalar</td><td>53.99 µs</td><td>1.78 µs</td><td>18.52 Kops/s</td><td>1.00x</td><td>✓</td></tr>
+        <tr><td>NEON Basic</td><td>NEON</td><td>52.97 µs</td><td>3.30 µs</td><td>18.88 Kops/s</td><td>1.02x</td><td>✓</td></tr>
+        <tr><td>NEON Unrolled (4x)</td><td>NEON Unrolled</td><td>45.96 µs</td><td>8.53 µs</td><td>21.76 Kops/s</td><td>1.17x</td><td>✓</td></tr>
+        <tr><td>Montgomery</td><td>CPU Scalar</td><td>34.45 µs</td><td>2.78 µs</td><td>29.02 Kops/s</td><td>1.57x</td><td>✓</td></tr>
+        <tr class="winner"><td>Barrett Unrolled (4x)</td><td>CPU Scalar</td><td>27.44 µs</td><td>3.04 µs</td><td>36.44 Kops/s</td><td>1.97x</td><td>✓</td></tr>
+        <tr><td>Barrett Parallel</td><td>Hybrid</td><td>183.78 µs</td><td>7.53 µs</td><td>5.44 Kops/s</td><td>0.29x</td><td>✓</td></tr>
+        <tr><td>Neural Engine</td><td>Neural Engine</td><td>27.85 µs</td><td>1.42 µs</td><td>35.91 Kops/s</td><td>1.94x</td><td>✓</td></tr>
+    </table>
+    <h2>Modular Multiplication (n=65536)</h2>
+    <table>
+        <tr><th>Method</th><th>Backend</th><th>Latency</th><th>Stddev</th><th>Throughput</th><th>Speedup</th><th>Correct</th></tr>
+        <tr><td>CPU Scalar</td><td>CPU Scalar</td><td>201.87 µs</td><td>13.79 µs</td><td>4.95 Kops/s</td><td>1.00x</td><td>✓</td></tr>
+        <tr><td>NEON Basic</td><td>NEON</td><td>192.81 µs</td><td>10.56 µs</td><td>5.19 Kops/s</td><td>1.05x</td><td>✓</td></tr>
+        <tr><td>NEON Unrolled (4x)</td><td>NEON Unrolled</td><td>188.44 µs</td><td>10.00 µs</td><td>5.31 Kops/s</td><td>1.07x</td><td>✓</td></tr>
+        <tr><td>Montgomery</td><td>CPU Scalar</td><td>139.47 µs</td><td>12.61 µs</td><td>7.17 Kops/s</td><td>1.45x</td><td>✓</td></tr>
+        <tr><td>Barrett Unrolled (4x)</td><td>CPU Scalar</td><td>137.11 µs</td><td>39.65 µs</td><td>7.29 Kops/s</td><td>1.47x</td><td>✓</td></tr>
+        <tr><td>Barrett Parallel</td><td>Hybrid</td><td>178.01 µs</td><td>7.08 µs</td><td>5.62 Kops/s</td><td>1.13x</td><td>✓</td></tr>
+        <tr class="winner"><td>Neural Engine</td><td>Neural Engine</td><td>124.65 µs</td><td>30.70 µs</td><td>8.02 Kops/s</td><td>1.62x</td><td>✓</td></tr>
+    </table>
+    <h2>NTT (degree=1024)</h2>
+    <table>
+        <tr><th>Method</th><th>Backend</th><th>Latency</th><th>Stddev</th><th>Throughput</th><th>Speedup</th><th>Correct</th></tr>
+        <tr><td>Scalar NTT</td><td>CPU Scalar</td><td>16.94 µs</td><td>457.41 ns</td><td>59.04 Kops/s</td><td>1.00x</td><td>✓</td></tr>
+        <tr><td>NEON NTT</td><td>NEON</td><td>17.24 µs</td><td>1.26 µs</td><td>58.01 Kops/s</td><td>0.98x</td><td>✓</td></tr>
+        <tr><td>Barrett NTT</td><td>CPU Scalar</td><td>13.97 µs</td><td>2.53 µs</td><td>71.56 Kops/s</td><td>1.21x</td><td>✓</td></tr>
+        <tr><td>Montgomery NTT</td><td>CPU Scalar</td><td>8.92 µs</td><td>1.27 µs</td><td>112.15 Kops/s</td><td>1.90x</td><td>✓</td></tr>
+        <tr><td>Matrix-form NTT (AMX)</td><td>AMX</td><td>8.87 µs</td><td>1.69 µs</td><td>112.68 Kops/s</td><td>1.91x</td><td>✓</td></tr>
+        <tr class="winner"><td>SME Tile NTT</td><td>SME</td><td>8.69 µs</td><td>967.15 ns</td><td>115.13 Kops/s</td><td>1.95x</td><td>✓</td></tr>
+    </table>
+    <h2>NTT (degree=4096)</h2>
+    <table>
+        <tr><th>Method</th><th>Backend</th><th>Latency</th><th>Stddev</th><th>Throughput</th><th>Speedup</th><th>Correct</th></tr>
+        <tr><td>Scalar NTT</td><td>CPU Scalar</td><td>94.17 µs</td><td>40.22 µs</td><td>10.62 Kops/s</td><td>1.00x</td><td>✓</td></tr>
+        <tr><td>NEON NTT</td><td>NEON</td><td>86.90 µs</td><td>7.02 µs</td><td>11.51 Kops/s</td><td>1.08x</td><td>✓</td></tr>
+        <tr><td>Barrett NTT</td><td>CPU Scalar</td><td>67.15 µs</td><td>14.28 µs</td><td>14.89 Kops/s</td><td>1.40x</td><td>✓</td></tr>
+        <tr><td>Montgomery NTT</td><td>CPU Scalar</td><td>55.27 µs</td><td>72.03 µs</td><td>18.09 Kops/s</td><td>1.70x</td><td>✓</td></tr>
+        <tr><td>Matrix-form NTT (AMX)</td><td>AMX</td><td>49.05 µs</td><td>31.28 µs</td><td>20.39 Kops/s</td><td>1.92x</td><td>✓</td></tr>
+        <tr class="winner"><td>SME Tile NTT</td><td>SME</td><td>41.12 µs</td><td>3.16 µs</td><td>24.32 Kops/s</td><td>2.29x</td><td>✓</td></tr>
+    </table>
+    <h2>NTT (degree=16384)</h2>
+    <table>
+        <tr><th>Method</th><th>Backend</th><th>Latency</th><th>Stddev</th><th>Throughput</th><th>Speedup</th><th>Correct</th></tr>
+        <tr><td>Scalar NTT</td><td>CPU Scalar</td><td>396.95 µs</td><td>27.26 µs</td><td>2.52 Kops/s</td><td>1.00x</td><td>✓</td></tr>
+        <tr><td>NEON NTT</td><td>NEON</td><td>397.19 µs</td><td>16.27 µs</td><td>2.52 Kops/s</td><td>1.00x</td><td>✓</td></tr>
+        <tr><td>Barrett NTT</td><td>CPU Scalar</td><td>386.23 µs</td><td>61.00 µs</td><td>2.59 Kops/s</td><td>1.03x</td><td>✓</td></tr>
+        <tr><td>Montgomery NTT</td><td>CPU Scalar</td><td>187.11 µs</td><td>7.68 µs</td><td>5.34 Kops/s</td><td>2.12x</td><td>✓</td></tr>
+        <tr class="winner"><td>Matrix-form NTT (AMX)</td><td>AMX</td><td>186.72 µs</td><td>9.00 µs</td><td>5.36 Kops/s</td><td>2.13x</td><td>✓</td></tr>
+        <tr><td>SME Tile NTT</td><td>SME</td><td>187.02 µs</td><td>6.22 µs</td><td>5.35 Kops/s</td><td>2.12x</td><td>✓</td></tr>
+    </table>
+    <h2>Polynomial Multiplication (degree=1024)</h2>
+    <table>
+        <tr><th>Method</th><th>Backend</th><th>Latency</th><th>Stddev</th><th>Throughput</th><th>Speedup</th><th>Correct</th></tr>
+        <tr class="winner"><td>NTT-based</td><td>CPU Scalar</td><td>21.08 µs</td><td>1.75 µs</td><td>47.44 Kops/s</td><td>1.00x</td><td>✓</td></tr>
+    </table>
+    <h2>Polynomial Multiplication (degree=4096)</h2>
+    <table>
+        <tr><th>Method</th><th>Backend</th><th>Latency</th><th>Stddev</th><th>Throughput</th><th>Speedup</th><th>Correct</th></tr>
+        <tr class="winner"><td>NTT-based</td><td>CPU Scalar</td><td>95.69 µs</td><td>3.98 µs</td><td>10.45 Kops/s</td><td>1.00x</td><td>✓</td></tr>
+    </table>
+    <h2>Neural Engine Operations (batch=1024)</h2>
+    <table>
+        <tr><th>Method</th><th>Backend</th><th>Latency</th><th>Stddev</th><th>Throughput</th><th>Speedup</th><th>Correct</th></tr>
+        <tr class="winner"><td>CPU Direct</td><td>CPU Scalar</td><td>520.44 ns</td><td>36.31 ns</td><td>1.92 Mops/s</td><td>1.00x</td><td>✓</td></tr>
+        <tr><td>Neural Engine</td><td>Neural Engine</td><td>808.36 ns</td><td>22.16 ns</td><td>1.24 Mops/s</td><td>0.64x</td><td>✓</td></tr>
+        <tr><td>Neural Engine Poseidon</td><td>Neural Engine</td><td>1.95 ms</td><td>45.97 µs</td><td>524.37 Kops/s</td><td>1.00x</td><td>✓</td></tr>
+    </table>
+    <h2>Neural Engine Operations (batch=16384)</h2>
+    <table>
+        <tr><th>Method</th><th>Backend</th><th>Latency</th><th>Stddev</th><th>Throughput</th><th>Speedup</th><th>Correct</th></tr>
+        <tr class="winner"><td>CPU Direct</td><td>CPU Scalar</td><td>7.32 µs</td><td>39.67 ns</td><td>136.67 Kops/s</td><td>1.00x</td><td>✓</td></tr>
+        <tr><td>Neural Engine</td><td>Neural Engine</td><td>14.13 µs</td><td>603.21 ns</td><td>70.77 Kops/s</td><td>0.52x</td><td>✓</td></tr>
+        <tr><td>Neural Engine Poseidon</td><td>Neural Engine</td><td>31.43 ms</td><td>403.82 µs</td><td>521.36 Kops/s</td><td>1.00x</td><td>✓</td></tr>
+    </table>
+    <h2>Neural Engine Operations (batch=65536)</h2>
+    <table>
+        <tr><th>Method</th><th>Backend</th><th>Latency</th><th>Stddev</th><th>Throughput</th><th>Speedup</th><th>Correct</th></tr>
+        <tr class="winner"><td>CPU Direct</td><td>CPU Scalar</td><td>33.89 µs</td><td>2.22 µs</td><td>29.51 Kops/s</td><td>1.00x</td><td>✓</td></tr>
+        <tr><td>Neural Engine</td><td>Neural Engine</td><td>53.58 µs</td><td>2.17 µs</td><td>18.66 Kops/s</td><td>0.63x</td><td>✓</td></tr>
+        <tr><td>Neural Engine Poseidon</td><td>Neural Engine</td><td>125.56 ms</td><td>630.35 µs</td><td>521.94 Kops/s</td><td>1.00x</td><td>✓</td></tr>
+    </table>
+    <h2>Ray Tracing Operations (base=256, levels=4)</h2>
+    <table>
+        <tr><th>Method</th><th>Backend</th><th>Latency</th><th>Stddev</th><th>Throughput</th><th>Speedup</th><th>Correct</th></tr>
+        <tr class="winner"><td>CPU Direct</td><td>CPU Scalar</td><td>36.13 µs</td><td>1.09 µs</td><td>27.68 Kops/s</td><td>1.00x</td><td>✓</td></tr>
+        <tr><td>Ray Tracing BVH</td><td>Ray Tracing</td><td>42.85 µs</td><td>3.78 µs</td><td>23.34 Kops/s</td><td>0.84x</td><td>✓</td></tr>
+    </table>
+    <h2>Texture Sampling (degree=1024, points=10000)</h2>
+    <table>
+        <tr><th>Method</th><th>Backend</th><th>Latency</th><th>Stddev</th><th>Throughput</th><th>Speedup</th><th>Correct</th></tr>
+        <tr><td>Horner's Method</td><td>CPU Scalar</td><td>8.93 ms</td><td>115.31 µs</td><td>111.94 ops/s</td><td>1.00x</td><td>✓</td></tr>
+        <tr class="winner"><td>Texture Sampling</td><td>Texture Sampling</td><td>5.10 µs</td><td>272.17 ns</td><td>195.90 Kops/s</td><td>1750.06x</td><td>✓</td></tr>
+    </table>
+    <h2>Memory System (size=64KB)</h2>
+    <table>
+        <tr><th>Method</th><th>Backend</th><th>Latency</th><th>Stddev</th><th>Throughput</th><th>Speedup</th><th>Correct</th></tr>
+        <tr class="winner"><td>memcpy</td><td>CPU Scalar</td><td>551.21 ns</td><td>17.66 ns</td><td>0.00 ops/s</td><td>1.00x</td><td>✓</td></tr>
+        <tr><td>Unified Memory</td><td>Hybrid</td><td>949.98 ns</td><td>31.32 ns</td><td>0.00 ops/s</td><td>0.58x</td><td>✓</td></tr>
+        <tr><td>Cache-Aligned</td><td>CPU Scalar</td><td>553.34 ns</td><td>19.74 ns</td><td>0.00 ops/s</td><td>1.00x</td><td>✓</td></tr>
+    </table>
+    <h2>Memory System (size=1024KB)</h2>
+    <table>
+        <tr><th>Method</th><th>Backend</th><th>Latency</th><th>Stddev</th><th>Throughput</th><th>Speedup</th><th>Correct</th></tr>
+        <tr><td>memcpy</td><td>CPU Scalar</td><td>12.44 µs</td><td>353.47 ns</td><td>0.00 ops/s</td><td>1.00x</td><td>✓</td></tr>
+        <tr><td>Unified Memory</td><td>Hybrid</td><td>12.96 µs</td><td>64.35 ns</td><td>0.00 ops/s</td><td>0.96x</td><td>✓</td></tr>
+        <tr class="winner"><td>Cache-Aligned</td><td>CPU Scalar</td><td>12.34 µs</td><td>54.77 ns</td><td>0.00 ops/s</td><td>1.01x</td><td>✓</td></tr>
+    </table>
+    <h2>Memory System (size=16384KB)</h2>
+    <table>
+        <tr><th>Method</th><th>Backend</th><th>Latency</th><th>Stddev</th><th>Throughput</th><th>Speedup</th><th>Correct</th></tr>
+        <tr class="winner"><td>memcpy</td><td>CPU Scalar</td><td>209.90 µs</td><td>8.46 µs</td><td>0.00 ops/s</td><td>1.00x</td><td>✓</td></tr>
+        <tr><td>Unified Memory</td><td>Hybrid</td><td>211.53 µs</td><td>6.33 µs</td><td>0.00 ops/s</td><td>0.99x</td><td>✓</td></tr>
+        <tr><td>Cache-Aligned</td><td>CPU Scalar</td><td>210.88 µs</td><td>5.83 µs</td><td>0.00 ops/s</td><td>1.00x</td><td>✓</td></tr>
+    </table>
+    <h2>Pipelined Operations (degree=4096)</h2>
+    <table>
+        <tr><th>Method</th><th>Backend</th><th>Latency</th><th>Stddev</th><th>Throughput</th><th>Speedup</th><th>Correct</th></tr>
+        <tr><td>Sequential</td><td>CPU Scalar</td><td>95.91 µs</td><td>3.25 µs</td><td>10.43 Kops/s</td><td>1.00x</td><td>✓</td></tr>
+        <tr class="winner"><td>Parallel NTTs</td><td>Hybrid</td><td>85.59 µs</td><td>10.71 µs</td><td>11.68 Kops/s</td><td>1.12x</td><td>✓</td></tr>
+    </table>
+    <h2>Pipelined Operations (degree=16384)</h2>
+    <table>
+        <tr><th>Method</th><th>Backend</th><th>Latency</th><th>Stddev</th><th>Throughput</th><th>Speedup</th><th>Correct</th></tr>
+        <tr><td>Sequential</td><td>CPU Scalar</td><td>423.19 µs</td><td>17.30 µs</td><td>2.36 Kops/s</td><td>1.00x</td><td>✓</td></tr>
+        <tr class="winner"><td>Parallel NTTs</td><td>Hybrid</td><td>274.40 µs</td><td>15.16 µs</td><td>3.64 Kops/s</td><td>1.54x</td><td>✓</td></tr>
+    </table>
+</body>
+</html>

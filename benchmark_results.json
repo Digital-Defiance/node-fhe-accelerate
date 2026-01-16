@@ -1,0 +1,649 @@
+{
+  "report_title": "Comprehensive FHE Hardware Benchmark",
+  "suites": [
+    {
+      "name": "Modular Multiplication (n=1024)",
+      "winner": "Barrett Unrolled (4x)",
+      "best_latency_us": 1.77168,
+      "results": [
+        {
+          "method": "CPU Scalar",
+          "backend": "CPU Scalar",
+          "latency_us": 3.88088,
+          "speedup": 1,
+          "correct": true
+        },
+        {
+          "method": "NEON Basic",
+          "backend": "NEON",
+          "latency_us": 3.71587,
+          "speedup": 1.04441,
+          "correct": true
+        },
+        {
+          "method": "NEON Unrolled (4x)",
+          "backend": "NEON Unrolled",
+          "latency_us": 3.70208,
+          "speedup": 1.0483,
+          "correct": true
+        },
+        {
+          "method": "Montgomery",
+          "backend": "CPU Scalar",
+          "latency_us": 2.43956,
+          "speedup": 1.59081,
+          "correct": true
+        },
+        {
+          "method": "Barrett Unrolled (4x)",
+          "backend": "CPU Scalar",
+          "latency_us": 1.77168,
+          "speedup": 2.19051,
+          "correct": true
+        },
+        {
+          "method": "Neural Engine",
+          "backend": "Neural Engine",
+          "latency_us": 2.0079,
+          "speedup": 1.93281,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "Modular Multiplication (n=4096)",
+      "winner": "Barrett Unrolled (4x)",
+      "best_latency_us": 6.92539,
+      "results": [
+        {
+          "method": "CPU Scalar",
+          "backend": "CPU Scalar",
+          "latency_us": 13.5237,
+          "speedup": 1,
+          "correct": true
+        },
+        {
+          "method": "NEON Basic",
+          "backend": "NEON",
+          "latency_us": 13.0659,
+          "speedup": 1.03504,
+          "correct": true
+        },
+        {
+          "method": "NEON Unrolled (4x)",
+          "backend": "NEON Unrolled",
+          "latency_us": 13.7258,
+          "speedup": 0.985277,
+          "correct": true
+        },
+        {
+          "method": "Montgomery",
+          "backend": "CPU Scalar",
+          "latency_us": 9.23287,
+          "speedup": 1.46474,
+          "correct": true
+        },
+        {
+          "method": "Barrett Unrolled (4x)",
+          "backend": "CPU Scalar",
+          "latency_us": 6.92539,
+          "speedup": 1.95278,
+          "correct": true
+        },
+        {
+          "method": "Barrett Parallel",
+          "backend": "Hybrid",
+          "latency_us": 163.554,
+          "speedup": 0.0826866,
+          "correct": true
+        },
+        {
+          "method": "Neural Engine",
+          "backend": "Neural Engine",
+          "latency_us": 7.79625,
+          "speedup": 1.73465,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "Modular Multiplication (n=16384)",
+      "winner": "Barrett Unrolled (4x)",
+      "best_latency_us": 26.8655,
+      "results": [
+        {
+          "method": "CPU Scalar",
+          "backend": "CPU Scalar",
+          "latency_us": 46.3025,
+          "speedup": 1,
+          "correct": true
+        },
+        {
+          "method": "NEON Basic",
+          "backend": "NEON",
+          "latency_us": 44.5688,
+          "speedup": 1.0389,
+          "correct": true
+        },
+        {
+          "method": "NEON Unrolled (4x)",
+          "backend": "NEON Unrolled",
+          "latency_us": 53.1733,
+          "speedup": 0.870784,
+          "correct": true
+        },
+        {
+          "method": "Montgomery",
+          "backend": "CPU Scalar",
+          "latency_us": 35.7521,
+          "speedup": 1.2951,
+          "correct": true
+        },
+        {
+          "method": "Barrett Unrolled (4x)",
+          "backend": "CPU Scalar",
+          "latency_us": 26.8655,
+          "speedup": 1.7235,
+          "correct": true
+        },
+        {
+          "method": "Barrett Parallel",
+          "backend": "Hybrid",
+          "latency_us": 163.642,
+          "speedup": 0.282951,
+          "correct": true
+        },
+        {
+          "method": "Neural Engine",
+          "backend": "Neural Engine",
+          "latency_us": 28.5841,
+          "speedup": 1.61987,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "Modular Multiplication (n=65536)",
+      "winner": "Barrett Unrolled (4x)",
+      "best_latency_us": 114.282,
+      "results": [
+        {
+          "method": "CPU Scalar",
+          "backend": "CPU Scalar",
+          "latency_us": 202.464,
+          "speedup": 1,
+          "correct": true
+        },
+        {
+          "method": "NEON Basic",
+          "backend": "NEON",
+          "latency_us": 181.042,
+          "speedup": 1.11833,
+          "correct": true
+        },
+        {
+          "method": "NEON Unrolled (4x)",
+          "backend": "NEON Unrolled",
+          "latency_us": 194.203,
+          "speedup": 1.04253,
+          "correct": true
+        },
+        {
+          "method": "Montgomery",
+          "backend": "CPU Scalar",
+          "latency_us": 138.148,
+          "speedup": 1.46556,
+          "correct": true
+        },
+        {
+          "method": "Barrett Unrolled (4x)",
+          "backend": "CPU Scalar",
+          "latency_us": 114.282,
+          "speedup": 1.77161,
+          "correct": true
+        },
+        {
+          "method": "Barrett Parallel",
+          "backend": "Hybrid",
+          "latency_us": 174.625,
+          "speedup": 1.15942,
+          "correct": true
+        },
+        {
+          "method": "Neural Engine",
+          "backend": "Neural Engine",
+          "latency_us": 127.327,
+          "speedup": 1.59011,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "NTT (degree=1024)",
+      "winner": "Matrix-form NTT (AMX)",
+      "best_latency_us": 8.58332,
+      "results": [
+        {
+          "method": "Scalar NTT",
+          "backend": "CPU Scalar",
+          "latency_us": 17.7075,
+          "speedup": 1,
+          "correct": true
+        },
+        {
+          "method": "NEON NTT",
+          "backend": "NEON",
+          "latency_us": 17.3467,
+          "speedup": 1.0208,
+          "correct": true
+        },
+        {
+          "method": "Barrett NTT",
+          "backend": "CPU Scalar",
+          "latency_us": 13.2367,
+          "speedup": 1.33776,
+          "correct": true
+        },
+        {
+          "method": "Montgomery NTT",
+          "backend": "CPU Scalar",
+          "latency_us": 8.85834,
+          "speedup": 1.99896,
+          "correct": true
+        },
+        {
+          "method": "Matrix-form NTT (AMX)",
+          "backend": "AMX",
+          "latency_us": 8.58332,
+          "speedup": 2.06301,
+          "correct": true
+        },
+        {
+          "method": "SME Tile NTT",
+          "backend": "SME",
+          "latency_us": 8.66921,
+          "speedup": 2.04257,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "NTT (degree=4096)",
+      "winner": "SME Tile NTT",
+      "best_latency_us": 39.7388,
+      "results": [
+        {
+          "method": "Scalar NTT",
+          "backend": "CPU Scalar",
+          "latency_us": 86.9746,
+          "speedup": 1,
+          "correct": true
+        },
+        {
+          "method": "NEON NTT",
+          "backend": "NEON",
+          "latency_us": 88.6008,
+          "speedup": 0.981646,
+          "correct": true
+        },
+        {
+          "method": "Barrett NTT",
+          "backend": "CPU Scalar",
+          "latency_us": 64.38,
+          "speedup": 1.35096,
+          "correct": true
+        },
+        {
+          "method": "Montgomery NTT",
+          "backend": "CPU Scalar",
+          "latency_us": 42.0421,
+          "speedup": 2.06875,
+          "correct": true
+        },
+        {
+          "method": "Matrix-form NTT (AMX)",
+          "backend": "AMX",
+          "latency_us": 41.5171,
+          "speedup": 2.09491,
+          "correct": true
+        },
+        {
+          "method": "SME Tile NTT",
+          "backend": "SME",
+          "latency_us": 39.7388,
+          "speedup": 2.18866,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "NTT (degree=16384)",
+      "winner": "SME Tile NTT",
+      "best_latency_us": 186.13,
+      "results": [
+        {
+          "method": "Scalar NTT",
+          "backend": "CPU Scalar",
+          "latency_us": 404.179,
+          "speedup": 1,
+          "correct": true
+        },
+        {
+          "method": "NEON NTT",
+          "backend": "NEON",
+          "latency_us": 398.362,
+          "speedup": 1.0146,
+          "correct": true
+        },
+        {
+          "method": "Barrett NTT",
+          "backend": "CPU Scalar",
+          "latency_us": 390.036,
+          "speedup": 1.03626,
+          "correct": true
+        },
+        {
+          "method": "Montgomery NTT",
+          "backend": "CPU Scalar",
+          "latency_us": 188.282,
+          "speedup": 2.14667,
+          "correct": true
+        },
+        {
+          "method": "Matrix-form NTT (AMX)",
+          "backend": "AMX",
+          "latency_us": 187.026,
+          "speedup": 2.16109,
+          "correct": true
+        },
+        {
+          "method": "SME Tile NTT",
+          "backend": "SME",
+          "latency_us": 186.13,
+          "speedup": 2.17149,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "Polynomial Multiplication (degree=1024)",
+      "winner": "NTT-based",
+      "best_latency_us": 21.2442,
+      "results": [
+        {
+          "method": "NTT-based",
+          "backend": "CPU Scalar",
+          "latency_us": 21.2442,
+          "speedup": 1,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "Polynomial Multiplication (degree=4096)",
+      "winner": "NTT-based",
+      "best_latency_us": 97.04,
+      "results": [
+        {
+          "method": "NTT-based",
+          "backend": "CPU Scalar",
+          "latency_us": 97.04,
+          "speedup": 1,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "Neural Engine Operations (batch=1024)",
+      "winner": "CPU Direct",
+      "best_latency_us": 0.51502,
+      "results": [
+        {
+          "method": "CPU Direct",
+          "backend": "CPU Scalar",
+          "latency_us": 0.51502,
+          "speedup": 1,
+          "correct": true
+        },
+        {
+          "method": "Neural Engine",
+          "backend": "Neural Engine",
+          "latency_us": 0.77831,
+          "speedup": 0.661716,
+          "correct": true
+        },
+        {
+          "method": "Neural Engine Poseidon",
+          "backend": "Neural Engine",
+          "latency_us": 1990.07,
+          "speedup": 1,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "Neural Engine Operations (batch=16384)",
+      "winner": "CPU Direct",
+      "best_latency_us": 8.39494,
+      "results": [
+        {
+          "method": "CPU Direct",
+          "backend": "CPU Scalar",
+          "latency_us": 8.39494,
+          "speedup": 1,
+          "correct": true
+        },
+        {
+          "method": "Neural Engine",
+          "backend": "Neural Engine",
+          "latency_us": 14.9954,
+          "speedup": 0.559835,
+          "correct": true
+        },
+        {
+          "method": "Neural Engine Poseidon",
+          "backend": "Neural Engine",
+          "latency_us": 31625,
+          "speedup": 1,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "Neural Engine Operations (batch=65536)",
+      "winner": "CPU Direct",
+      "best_latency_us": 34.1358,
+      "results": [
+        {
+          "method": "CPU Direct",
+          "backend": "CPU Scalar",
+          "latency_us": 34.1358,
+          "speedup": 1,
+          "correct": true
+        },
+        {
+          "method": "Neural Engine",
+          "backend": "Neural Engine",
+          "latency_us": 55.1088,
+          "speedup": 0.619427,
+          "correct": true
+        },
+        {
+          "method": "Neural Engine Poseidon",
+          "backend": "Neural Engine",
+          "latency_us": 125870,
+          "speedup": 1,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "Ray Tracing Operations (base=256, levels=4)",
+      "winner": "CPU Direct",
+      "best_latency_us": 36.3938,
+      "results": [
+        {
+          "method": "CPU Direct",
+          "backend": "CPU Scalar",
+          "latency_us": 36.3938,
+          "speedup": 1,
+          "correct": true
+        },
+        {
+          "method": "Ray Tracing BVH",
+          "backend": "Ray Tracing",
+          "latency_us": 42.7487,
+          "speedup": 0.851341,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "Texture Sampling (degree=1024, points=10000)",
+      "winner": "Texture Sampling",
+      "best_latency_us": 5.08497,
+      "results": [
+        {
+          "method": "Horner's Method",
+          "backend": "CPU Scalar",
+          "latency_us": 8968.04,
+          "speedup": 1,
+          "correct": true
+        },
+        {
+          "method": "Texture Sampling",
+          "backend": "Texture Sampling",
+          "latency_us": 5.08497,
+          "speedup": 1763.64,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "Memory System (size=64KB)",
+      "winner": "Cache-Aligned",
+      "best_latency_us": 0.57085,
+      "results": [
+        {
+          "method": "memcpy",
+          "backend": "CPU Scalar",
+          "latency_us": 0.63085,
+          "speedup": 1,
+          "correct": true
+        },
+        {
+          "method": "Unified Memory",
+          "backend": "Hybrid",
+          "latency_us": 0.93663,
+          "speedup": 0.673532,
+          "correct": true
+        },
+        {
+          "method": "Cache-Aligned",
+          "backend": "CPU Scalar",
+          "latency_us": 0.57085,
+          "speedup": 1.10511,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "Memory System (size=1024KB)",
+      "winner": "memcpy",
+      "best_latency_us": 12.3517,
+      "results": [
+        {
+          "method": "memcpy",
+          "backend": "CPU Scalar",
+          "latency_us": 12.3517,
+          "speedup": 1,
+          "correct": true
+        },
+        {
+          "method": "Unified Memory",
+          "backend": "Hybrid",
+          "latency_us": 14.0592,
+          "speedup": 0.878552,
+          "correct": true
+        },
+        {
+          "method": "Cache-Aligned",
+          "backend": "CPU Scalar",
+          "latency_us": 12.9033,
+          "speedup": 0.957253,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "Memory System (size=16384KB)",
+      "winner": "Cache-Aligned",
+      "best_latency_us": 212.55,
+      "results": [
+        {
+          "method": "memcpy",
+          "backend": "CPU Scalar",
+          "latency_us": 218.01,
+          "speedup": 1,
+          "correct": true
+        },
+        {
+          "method": "Unified Memory",
+          "backend": "Hybrid",
+          "latency_us": 214.907,
+          "speedup": 1.01444,
+          "correct": true
+        },
+        {
+          "method": "Cache-Aligned",
+          "backend": "CPU Scalar",
+          "latency_us": 212.55,
+          "speedup": 1.02569,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "Pipelined Operations (degree=4096)",
+      "winner": "Parallel NTTs",
+      "best_latency_us": 85.6255,
+      "results": [
+        {
+          "method": "Sequential",
+          "backend": "CPU Scalar",
+          "latency_us": 96.6471,
+          "speedup": 1,
+          "correct": true
+        },
+        {
+          "method": "Parallel NTTs",
+          "backend": "Hybrid",
+          "latency_us": 85.6255,
+          "speedup": 1.12872,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "Pipelined Operations (degree=16384)",
+      "winner": "Parallel NTTs",
+      "best_latency_us": 275.395,
+      "results": [
+        {
+          "method": "Sequential",
+          "backend": "CPU Scalar",
+          "latency_us": 426.501,
+          "speedup": 1,
+          "correct": true
+        },
+        {
+          "method": "Parallel NTTs",
+          "backend": "Hybrid",
+          "latency_us": 275.395,
+          "speedup": 1.54869,
+          "correct": true
+        }
+      ]
+    }
+  ]
+}

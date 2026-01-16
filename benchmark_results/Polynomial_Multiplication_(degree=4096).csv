@@ -1,0 +1,2 @@
+method,backend,latency_us,latency_stddev,throughput_ops_sec,speedup,correct,notes
+NTT-based,CPU Scalar,95.6945,3.9794,10449.9,1,true,"O(n log n)"

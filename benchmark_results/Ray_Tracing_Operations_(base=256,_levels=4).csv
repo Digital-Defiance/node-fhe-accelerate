@@ -1,0 +1,3 @@
+method,backend,latency_us,latency_stddev,throughput_ops_sec,speedup,correct,notes
+CPU Direct,CPU Scalar,36.1329,1.08615,27675.6,1,true,""
+Ray Tracing BVH,Ray Tracing,42.8537,3.78356,23335.2,0.843169,true,"BVH traversal"

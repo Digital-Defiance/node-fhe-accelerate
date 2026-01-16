@@ -1,0 +1,8 @@
+method,backend,latency_us,latency_stddev,throughput_ops_sec,speedup,correct,notes
+CPU Scalar,CPU Scalar,201.872,13.7915,4953.64,1,true,""
+NEON Basic,NEON,192.814,10.5557,5186.34,1.04698,true,""
+NEON Unrolled (4x),NEON Unrolled,188.44,9.99875,5306.73,1.07128,true,""
+Montgomery,CPU Scalar,139.469,12.6093,7170.07,1.44743,true,"Division-free"
+Barrett Unrolled (4x),CPU Scalar,137.108,39.6517,7293.5,1.47235,true,"Division-free + ILP"
+Barrett Parallel,Hybrid,178.013,7.08226,5617.58,1.13403,true,"16 threads"
+Neural Engine,Neural Engine,124.649,30.7033,8022.52,1.61952,true,"Barrett + Accelerate"

@@ -1,0 +1,4 @@
+method,backend,latency_us,latency_stddev,throughput_ops_sec,speedup,correct,notes
+memcpy,CPU Scalar,12.3517,0.0500277,0,1,true,""
+Unified Memory,Hybrid,14.0592,6.22694,0,0.878552,true,"IOSurface zero-copy"
+Cache-Aligned,CPU Scalar,12.9033,0.893267,0,0.957253,true,"128-byte aligned"

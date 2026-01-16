@@ -1,0 +1,7 @@
+method,backend,latency_us,latency_stddev,throughput_ops_sec,speedup,correct,notes
+Scalar NTT,CPU Scalar,396.953,27.2574,2519.19,1,true,""
+NEON NTT,NEON,397.188,16.2669,2517.7,0.999408,true,""
+Barrett NTT,CPU Scalar,386.225,61.0048,2589.16,1.02777,true,"Division-free"
+Montgomery NTT,CPU Scalar,187.11,7.68201,5344.45,2.12149,true,"Division-free, in-domain"
+Matrix-form NTT (AMX),AMX,186.715,8.99744,5355.74,2.12598,true,"Butterfly matrices via Accelerate"
+SME Tile NTT,SME,187.019,6.22477,5347.06,2.12253,true,"512-bit tile registers"

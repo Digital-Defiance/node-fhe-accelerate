@@ -1,0 +1,3 @@
+method,backend,latency_us,latency_stddev,throughput_ops_sec,speedup,correct,notes
+Horner's Method,CPU Scalar,8968.04,56.3458,111.507,1,true,""
+Texture Sampling,Texture Sampling,5.08497,0.0410891,196658,1763.64,true,"GPU texture hardware"

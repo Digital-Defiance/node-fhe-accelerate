@@ -1,0 +1,19 @@
+{
+  "$schema": "https://napi.rs/config.schema.json",
+  "name": "node-fhe-accelerate",
+  "package": {
+    "name": "@digitaldefiance/node-fhe-accelerate"
+  },
+  "triples": {
+    "defaults": true,
+    "additional": [
+      "aarch64-apple-darwin"
+    ]
+  },
+  "targets": [
+    "aarch64-apple-darwin"
+  ],
+  "binaryName": "node-fhe-accelerate",
+  "packageName": "@digitaldefiance/node-fhe-accelerate",
+  "npmClient": "yarn"
+}

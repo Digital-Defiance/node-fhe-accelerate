@@ -1,0 +1,4 @@
+method,backend,latency_us,latency_stddev,throughput_ops_sec,speedup,correct,notes
+CPU Direct,CPU Scalar,33.8871,2.21632,29509.7,1,true,""
+Neural Engine,Neural Engine,53.5792,2.16658,18664,0.632468,true,"Barrett + Accelerate"
+Neural Engine Poseidon,Neural Engine,125562,630.349,521941,1,true,"width=3, 8 full + 22 partial rounds"

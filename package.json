@@ -1,0 +1,95 @@
+{
+  "name": "@digitaldefiance/node-fhe-accelerate",
+  "version": "0.1.0",
+  "description": "High-performance Fully Homomorphic Encryption (FHE) acceleration library optimized for Apple M4 Max hardware",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
+    }
+  },
+  "type": "module",
+  "files": [
+    "dist",
+    "native",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "yarn build:shaders && yarn build:ts && yarn build:native",
+    "build:ts": "yarn build:cjs && yarn build:esm && yarn build:types",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:types": "tsc -p tsconfig.types.json",
+    "build:native": "napi build --target aarch64-apple-darwin --release",
+    "build:debug": "yarn build:shaders:debug && napi build --target aarch64-apple-darwin",
+    "build:shaders": "bash scripts/compile-shaders.sh release",
+    "build:shaders:debug": "bash scripts/compile-shaders.sh debug",
+    "build:shaders:watch": "FHE_SHADER_HOT_RELOAD=1 bash scripts/compile-shaders.sh debug",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:native": "node test-native.js",
+    "benchmark": "./run_benchmark",
+    "benchmark:comprehensive": "./run_comprehensive_benchmark",
+    "lint": "eslint src --ext .ts",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "clean": "rm -rf dist index.node target/shaders && rm -f native/*.node 2>/dev/null || true",
+    "prepublishOnly": "yarn clean && yarn build",
+    "publish:public": "npm publish --access public"
+  },
+  "keywords": [
+    "fhe",
+    "homomorphic-encryption",
+    "tfhe",
+    "cryptography",
+    "privacy",
+    "apple-silicon",
+    "m4-max",
+    "native-addon",
+    "napi-rs"
+  ],
+  "author": "Digital Defiance",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Digital-Defiance/node-fhe-accelerate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Digital-Defiance/node-fhe-accelerate/issues"
+  },
+  "homepage": "https://github.com/Digital-Defiance/node-fhe-accelerate#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "os": [
+    "darwin"
+  ],
+  "cpu": [
+    "arm64"
+  ],
+  "devDependencies": {
+    "@napi-rs/cli": "^2.18.0",
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "@vitest/coverage-v8": "^1.0.0",
+    "eslint": "^8.54.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "fast-check": "^3.15.0",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0"
+  },
+  "packageManager": "yarn@4.0.0"
+}

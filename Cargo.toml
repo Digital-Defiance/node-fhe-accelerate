@@ -1,0 +1,48 @@
+[package]
+name = "node-fhe-accelerate"
+version = "0.1.0"
+edition = "2021"
+authors = ["Digital Defiance"]
+license = "MIT"
+description = "High-performance FHE acceleration library for Apple M4 Max"
+repository = "https://github.com/Digital-Defiance/node-fhe-accelerate"
+
+[lib]
+crate-type = ["cdylib"]
+path = "src/native/lib.rs"
+
+[dependencies]
+# napi-rs for Node.js bindings
+napi = { version = "2", default-features = false, features = ["async", "napi8", "tokio_rt"] }
+napi-derive = "2"
+
+# C++ interop
+cxx = "1.0"
+
+# Async runtime
+tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
+
+# Serialization for data exchange
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[build-dependencies]
+napi-build = "2"
+cxx-build = "1.0"
+
+[profile.release]
+# Optimize for performance on Apple Silicon
+lto = true
+codegen-units = 1
+opt-level = 3
+strip = true
+
+# Target-specific optimizations for arm64 macOS
+[target.'cfg(all(target_os = "macos", target_arch = "aarch64"))'.dependencies]
+# Metal framework bindings (will be added when implementing Metal backend)
+# metal = "0.27"
+# objc = "0.2"
+
+[package.metadata.napi]
+name = "node-fhe-accelerate"
+triples = ["aarch64-apple-darwin"]

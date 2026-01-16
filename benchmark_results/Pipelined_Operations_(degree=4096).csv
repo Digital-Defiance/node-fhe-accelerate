@@ -1,0 +1,3 @@
+method,backend,latency_us,latency_stddev,throughput_ops_sec,speedup,correct,notes
+Sequential,CPU Scalar,95.9133,3.2524,10426.1,1,true,""
+Parallel NTTs,Hybrid,85.5891,10.7062,11683.7,1.12062,true,"2 threads for NTTs"

@@ -1,0 +1,17 @@
+[build]
+# Target arm64 macOS by default
+target = "aarch64-apple-darwin"
+
+[target.aarch64-apple-darwin]
+# Optimize for Apple Silicon M4 Max
+rustflags = [
+    "-C", "target-cpu=native",
+    "-C", "target-feature=+neon,+crc",
+]
+
+# Link arguments for Apple frameworks are handled in build.rs
+# -framework Foundation
+# -framework Metal
+# -framework Accelerate
+# -framework CoreFoundation
+
